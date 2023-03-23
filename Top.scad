@@ -11,4 +11,9 @@ difference() {
 		y=-sin(i[0])*(button_center_polar_length);
 		translate([x, y, -3]) linear_extrude(height=25) circle(r=button_hole_radius);
 	}
+	translate([-28, -20, 18]) linear_extrude(height=3) text("HiveMind", font="Liberation Serif:style=Bold");
+	translate([0, -40, 18]) linear_extrude(height=3) circle(r=15, $fn=6);
+	translate([24, -53.5, 18]) linear_extrude(height=3) circle(r=15, $fn=6);
+	translate([0, -67, 18]) linear_extrude(height=3) circle(r=15, $fn=6);
+	translate([-24, -80.5, 18]) linear_extrude(height=3) circle(r=15, $fn=6);
 }
