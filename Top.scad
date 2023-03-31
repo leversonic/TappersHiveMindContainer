@@ -1,10 +1,5 @@
-use <Shared.scad>
+include <Shared.scad>
 
-total_radius=161.8;
-button_inset=30;
-button_hole_radius=12.5;
-lid_thickness=5;
-total_height=50;
 
 module Top() {
 	difference() {
@@ -20,11 +15,11 @@ module TopBody() {
 	difference() {
 		linear_extrude(height=total_height) circle(r=total_radius, $fn=10);
 		translate([-200, 0, -1]) linear_extrude(height=total_height+2) square(size=[400, 200], center=false);
-		translate([0, -lid_thickness, -10]) InnerCavity();
+		translate([0, -lid_thickness, -10]) TopInnerCavity();
 	}
 }
 
-module InnerCavity() {
+module TopInnerCavity() {
 	difference() {
 		translate([0, 0, 9]) linear_extrude(height=total_height-lid_thickness+1) circle(r=total_radius-(2*lid_thickness), $fn=10);
 		translate([-200, 0, 9]) linear_extrude(height=total_height+2) square(size=[400, 200], center=false);
@@ -36,7 +31,8 @@ module ButtonHoles() {
 		button_center_polar_length=total_radius - button_inset - button_hole_radius;
 		x=i[1]*cos(i[0])*(button_center_polar_length);
 		y=-sin(i[0])*(button_center_polar_length);
-		translate([x, y, -1]) linear_extrude(height=total_height+2) circle(r=button_hole_radius, $fn=1000);
+		translate([x, y, -1]) linear_extrude(height=total_height+2) circle(r=button_hole_radius, $fn=100);
+		translate([x, y, total_height-lid_thickness-button_lip_height]) linear_extrude(height=lid_thickness-button_lip_height+1) circle(r=button_lip_radius, $fn=100);
 	}
 }
 

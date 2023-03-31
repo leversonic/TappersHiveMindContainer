@@ -1,5 +1,5 @@
-use <Top.scad>
-use <Bottom.scad>
+include <Top.scad>
+include <Bottom.scad>
 
 Top();
-translate([0, -6, -5]) Bottom();
+translate([0, -lid_thickness-1, -bottom_thickness]) Bottom();
