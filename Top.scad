@@ -20,6 +20,11 @@ module TopBody() {
 		linear_extrude(height=total_height) circle(r=total_radius, $fn=10);
 		translate([-200, 0, -1]) linear_extrude(height=total_height+2) square(size=[400, 200], center=false);
 		translate([0, -lid_thickness, -10]) TopInnerCavity();
+		translate([0, -(cos(18) * total_radius + 1), total_height / 2]) rotate([-90, 0, 0]) Queen(total_height / 2, total_height / 2, engrave_depth);
+		translate([-(cos(18) * total_radius + 1) * cos(54), -(cos(18) * total_radius + 1) * sin(54), total_height / 2]) rotate([-90, 0, -36]) Abs(total_height / 2, total_height / 2, engrave_depth);
+		translate([-(cos(18) * total_radius + 1) * cos(18), -(cos(18) * total_radius + 1) * sin(18), total_height / 2]) rotate([-90, 0, -72]) Stripes(total_height / 2, total_height / 2, engrave_depth);
+		translate([(cos(18) * total_radius + 1) * cos(54), -(cos(18) * total_radius + 1) * sin(54), total_height / 2]) rotate([-90, 0, 36]) Skulls(total_height / 2, total_height / 2, engrave_depth);
+		translate([(cos(18) * total_radius + 1) * cos(18), -(cos(18) * total_radius + 1) * sin(18), total_height / 2]) rotate([-90, 0, 72]) Checks(total_height / 2, total_height / 2, engrave_depth);
 	}
 }
 
@@ -61,3 +66,64 @@ module TopLockTube() {
 		circle(r=lock_tube_inner_radius, $fn=500);
 	}
 }
+
+module Border(width, height) {
+	difference() {
+		translate([-width * 0.01, -height * 0.01, 0]) square(size=[width * 1.02, height * 1.02], center=false);
+		translate([width * 0.01, height * 0.01]) square(size=[width * 0.98, height * 0.98], center=false);
+	}
+}
+module ScaledPolygon(points, width, height) {
+	function scalePoint(point) = [point[0] * width / 128, point[1] * height / 128];
+
+	scaledPoints = [for (i = [0 : len(points) - 1]) scalePoint(points[i])];
+	polygon(scaledPoints);
+}
+
+module Stripes(width, height, thickness) {
+	translate([-width / 2, -height / 2, 0]) linear_extrude(height=thickness) union() {
+		Border(width, height);
+		square(size=[width, height * 0.2]);
+		translate([0, height * 0.4, 0]) square(size=[width, height * 0.2]);
+		translate([0, height * 0.8, 0]) square(size=[width, height * 0.2]);
+	}
+}
+
+module Checks(width, height, thickness) {
+	translate([-width / 2, -height / 2, 0]) linear_extrude(height=thickness) union() {
+		Border(width, height);
+		square(size=[width / 3, height / 3]);
+		translate([2 * width / 3, 0, 0]) square(size=[width / 3, height / 3]);
+		translate([1.01 * width / 3, 1.01 * width / 3, 0]) square(size=[0.98 * width / 3, 0.98 * height / 3]);
+		translate([0, 2 * width / 3, 0]) square(size=[width / 3, height / 3]);
+		translate([2 * width / 3, 2 * width / 3, 0]) square(size=[width / 3, height / 3]);
+	}
+}
+
+module Queen(width, height, thickness) {
+	translate([-width / 2, -height / 2, 0]) linear_extrude(height=thickness) difference() {
+		square(size=[width, height], center=false);
+		ScaledPolygon([[24, 112], [103.72, 112], [112, 24.73], [80, 56], [64, 16], [48, 56], [15.86, 24.73], [24, 112]], width, height);
+	}
+}
+
+module Abs(width, height, thickness) {
+	translate([-width / 2, -height / 2, 0]) linear_extrude(height=thickness) union() {
+		Border(width, height);
+		translate([28.29 * width / 128, 32.29 * height / 128, 0]) square(size=[14.29 * width / 128, 14.29 * width / 128]);
+		translate([85.71 * width / 128, 32.29 * height / 128, 0]) square(size=[14.29 * width / 128, 14.29 * width / 128]);
+		ScaledPolygon([[71.14, 18], [56.86, 18], [56.86, 60.86], [14, 60.86], [14, 75.14], [56.86, 75.14], [56.86, 89.43], [28.29, 89.43], [28.29, 103.71], [56.86, 103.71], [56.86, 128], [71.14, 128], [71.14, 103.71], [99.71, 103.71], [99.71, 89.43], [71.14, 89.43], [71.14, 75.14], [114, 75.14], [114, 60.86], [71.14, 60.86], [71.14, 18]], width, height);
+	}
+}
+
+module Skulls(width, height, thickness) {
+	translate([-width / 2, -height / 2, 0]) linear_extrude(height=thickness) union() {
+		difference() {
+			square(size=[width, height], center=false);
+			ScaledPolygon([[99, 57], [99, 43], [85, 43], [85, 29], [43, 29], [43, 43], [29, 43], [29, 57], [15, 57], [15, 85], [29, 85], [29, 99], [43, 99], [43, 85], [57, 85], [57, 99], [71, 99], [71, 85], [85, 85], [85, 99], [99, 99], [99, 85], [113, 85], [113, 57], [99, 57]], width, height);
+		}
+		translate([43 * width / 128, 57 * height / 128, 0]) square(size=[14* width / 128, 14 * width / 128]);
+		translate([71 * width / 128, 57 * height / 128, 0]) square(size=[14 * width / 128, 14 * width / 128]);
+	}
+}
+Top();
