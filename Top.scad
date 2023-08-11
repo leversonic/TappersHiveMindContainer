@@ -5,8 +5,7 @@ module Top() {
 		difference() {
 			TopBody();
 			ButtonHoles();
-			HiveMindLogo();
-			EthernetCableHole();
+			HoneycombTexture();
 			PowerCableHole();
 			LockSlot();
 		};
@@ -32,6 +31,15 @@ module TopInnerCavity() {
 	difference() {
 		translate([0, 0, 9]) linear_extrude(height=total_height-lid_thickness+1) circle(r=total_radius-(2*lid_thickness), $fn=10);
 		translate([-200, 0, 9]) linear_extrude(height=total_height+2) square(size=[400, 200], center=false);
+	}
+}
+
+module HoneycombTexture() {
+	for(x=[-floor(total_radius / honeycomb_hex_radius) : floor(total_radius / honeycomb_hex_radius)]) {
+		for(y=[0 : floor(total_radius / honeycomb_hex_radius)]) {
+			offset = y % 2 == 0 ? honeycomb_hex_radius : 0;
+			translate([0, -total_radius, total_height - engrave_depth + 1]) linear_extrude(height=engrave_depth + 1) translate([x * honeycomb_hex_radius * 2 + offset, y * honeycomb_hex_radius * cos(30) * 2]) rotate([0, 0, 90]) circle(r=honeycomb_hex_radius, $fn=6);
+		}
 	}
 }
 
