@@ -1,11 +1,13 @@
 total_radius=161.8;
 button_hole_radius=11.6;
+button_outline_radius=15;
 button_lip_radius=12.6;
 button_lip_height=2;
 lid_buffer=2;
 lid_thickness=10;
 bottom_thickness=5;
 button_inset=lid_thickness+bottom_thickness+20;
+button_outline_inset = lid_thickness + bottom_thickness + 16.8;
 total_height=50;
 lock_tube_outer_radius=5;
 lock_tube_inner_radius=3.5;
