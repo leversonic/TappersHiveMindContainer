@@ -147,4 +147,3 @@ module Skulls(width, height, thickness) {
 		translate([71 * width / 128, 57 * height / 128, 0]) square(size=[14 * width / 128, 14 * width / 128]);
 	}
 }
-Top();
