@@ -3,7 +3,7 @@ include <Shared.scad>
 module Bottom() {
 	union() {
 		difference() {
-			linear_extrude(height=total_height-lid_thickness+2) circle(r=total_radius-(2*lid_thickness)-lid_buffer, $fn=10);
+			linear_extrude(height=total_height-lid_thickness+4) circle(r=total_radius-(2*lid_thickness)-lid_buffer, $fn=10);
 			translate([-200, 0, -1]) linear_extrude(height=total_height+2) square(size=[400, 200], center=false);
 			BottomInnerCavity();
 			translate([0, 0, 5]) EthernetCableHole();
