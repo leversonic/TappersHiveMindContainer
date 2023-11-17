@@ -75,13 +75,13 @@ module HiveMindLogo() {
 }
 
 module LockSlot() {
-	translate([0, -lid_thickness/2, -1]) linear_extrude(height=lock_slot_height+1) square(size=[lock_slot_width, lid_thickness+1], center=true);
+	translate([0, -lid_thickness/2, -1]) linear_extrude(height=lock_slot_height+2) square(size=[lock_slot_width, lid_thickness+1], center=true);
 }
 
 module TopLockTube() {
 	translate([-(lock_slot_width)/2, lock_tube_outer_radius+lid_thickness, lock_slot_height+bottom_thickness-lock_tube_outer_radius]) rotate([-90, 180, -90]) linear_extrude(height=lock_slot_width) difference(){
 		union() {
-			polygon([[0, lock_tube_outer_radius], [lock_tube_outer_radius, 0], [lock_tube_outer_radius, lock_tube_outer_radius-lock_slot_height], [-lock_tube_outer_radius-1, lock_tube_outer_radius-lock_slot_height], [-lock_tube_outer_radius-1, lock_tube_outer_radius]]);
+			polygon([[0, lock_tube_outer_radius], [lock_tube_outer_radius, 0], [0, -lock_tube_outer_radius], [-lock_tube_outer_radius-1, -lock_tube_outer_radius], [-lock_tube_outer_radius-1, lock_tube_outer_radius]]);
 			circle(r=lock_tube_outer_radius, $fn=500);
 		}
 		circle(r=lock_tube_inner_radius, $fn=500);
