@@ -1,7 +1,7 @@
 total_radius=161.8;
-button_hole_radius=11.6;
+button_hole_radius=12;
 button_outline_radius=15;
-button_lip_radius=12.6;
+button_lip_radius=13.5;
 button_lip_height=2;
 lid_buffer=2;
 lid_thickness=10;
