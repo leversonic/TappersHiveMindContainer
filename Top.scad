@@ -7,6 +7,7 @@ module Top() {
 			ButtonHoles(button_hole_radius, button_inset);
 			TopTexture();
 			PowerCableHole();
+			EthernetCableHole();
 			LockSlot();
 		};
 		translate([-lock_slot_width, -lid_thickness-1, -bottom_thickness]) TopLockTube();
