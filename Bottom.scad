@@ -8,6 +8,8 @@ module Bottom() {
 			BottomInnerCavity();
 			translate([0, 0, 5]) EthernetCableHole();
 			translate([0, 0, 5]) PowerCableHole();
+			rotate([90, 0, 0]) translate([-total_radius + 2 * lid_thickness + 2 * bottom_thickness - ethernet_hole_radius + 20, (total_height - lid_thickness)/2 + 4, -1]) linear_extrude(height=bottom_thickness + 2) square([2 * ethernet_hole_radius, (total_height-lid_thickness+4)/2]);
+			rotate([90, 0, 0]) translate([total_radius-2*lid_thickness-2*bottom_thickness-power_hole_radius-20, (total_height - lid_thickness)/2 + 4, -1]) linear_extrude(height=bottom_thickness + 2) square([2 * power_hole_radius, (total_height-lid_thickness+4)/2]);
 		};
 		BottomLockTube();
 	}
@@ -30,3 +32,4 @@ module BottomLockTube() {
 	}
 }
 
+Bottom();
